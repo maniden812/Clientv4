@@ -1,39 +1,96 @@
 import React, { Component , useState} from 'react'
 import styles from './profile.module.css'
+import axios from "axios";
+
 // import { ClientRequest } from 'http'
 // import Enzyme from 'enzyme';
 // import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 // Enzyme.configure({ adapter: new Adapter() });
 const Profile =()=> {
-    const [fullname, setFullname]= useState('')
-    const [address1, setaddress1]= useState('')
-    const [address2, setaddress2]= useState('')
-    const [city, setCity]= useState('')
-    const [state, setstate]=useState('')
-    const [zipcode, setzipcode]= useState('')
+    // const [fullname, setFullname]= useState('')
+    // const [address1, setaddress1]= useState('')
+    // const [address2, setaddress2]= useState('')
+    // const [city, setCity]= useState('')
+    // const [state, setstate]=useState('')
+    // const [zipcode, setzipcode]= useState('')
 
-    const [client]= useState({
-        fullname: '',
-        address1: '',
-        address2: '',
-        city: '',
-        state: '',
-        zipcode: ''
-    
-    })
-
-    const handleSubmit = (event) =>{
-        // event.preventDefault();
-        client.fullname= fullname,
-        client.address1= address1,
-        client.address2= address2,
-        client.city= city,
-        client.state= state,
-        client.zipcode= zipcode
-    
-        alert(`${client.fullname} ${client.address1} ${client.address2} ${client.city} ${client.state} ${client.zipcode}`)
+    const [client, setClient] = useState({
+        fullname: "",
+        address1: "",
+        address2: "",
+        city: "",
+        state: "",
+        zipcode: "",
+    });
+    const handleChange = (e) => {
+        setClient({
+          ...client,
+          [e.target.name]: e.target.value,
+        });
     };
+    
+        // event.preventDefault();
+        
+    const handleSubmit = (event) =>{
+        axios
+          .post('http://localhost:3000/' + "profile", {
+            userid: localStorage.getItem("userid"),
+            fullname: client.fullname,
+            address1: client.address1,
+            address2: client.address2,
+            city: client.city,
+            state: client.state,
+            zipcode: client.zipcode,
+        })
+        .then((res) => {
+            console.log(res.data);
+            if (res.data.error) {
+              console.log(res.data.error);
+            } 
+            else {
+              console.log(res.data.credentials);
+              if (res.data.credentials) {
+                setClient({
+                  fullname: res.data.fullname,
+                  address1: res.data.address1,
+                  address2: res.data.address2,
+                  city: res.data.city,
+                  state: res.data.state,
+                  zipcode: res.data.zipcode,
+                  credentials: res.data.credentials
+                });
+                history.push("/profile");
+              } 
+              else if (!res.data.credentials) {
+                console.log(res.data);
+                history.push("/profile");
+              }
+            }
+          })
+          .catch((err) => console.log(err));
+        e.preventDefault();
+      };
+    //         const info={
+    //             fullname= fullname,
+    //             address1= address1,
+    //             address2= address2,
+    //             city= city,
+    //             state= state,
+    //             zipcode= zipcode
+    //         }
+    //         axios.post('http://localhost:3000', info)
+    //             .then((res) => {
+    //                 console.log(res.info)
+    //             }).catch((error) => {
+    //                 console.log(error)
+    //             });    
+    //     };
+    
+    //     // alert(`${client.fullname} ${client.address1} ${client.address2} ${client.city} ${client.state} ${client.zipcode}`)
+    // };
+        
+          
 
     return ( 
                 
@@ -46,8 +103,8 @@ const Profile =()=> {
                     name="fullname"
                     maxLength = '50' 
                     required
-                    value = {fullname}
-                    onChange={(fn)=>setFullname(fn.target.value)}/> 
+                    // value = {fullname}
+                    onChange={handleChange}/> 
                     <br/>
                     <br/>
 
@@ -57,9 +114,9 @@ const Profile =()=> {
                     <input type = 'text' 
                     name="address1"
                     required
-                    value = { address1 } 
+                    // value = { address1 } 
                     maxLength = '100' 
-                    onChange={(a1)=>setaddress1(a1.target.value)}/> 
+                    onChange={handleChange}/> 
                     <br/>
                     <br/>
 
@@ -68,9 +125,9 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="address2"
-                    value = { address2 } 
+                    // value = { address2 } 
                     maxLength = '100' 
-                    onChange={(a2)=>setaddress2(a2.target.value)}/> 
+                    onChange={handleChange}/> 
                     <br/>
                     <br/>
 
@@ -79,17 +136,17 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="city"
-                    value = { city } 
+                    // value = { city } 
                     required
                     maxLength = '100' 
-                    onChange={(c)=>setCity(c.target.value)}/> 
+                    onChange={handleChange}/> 
                     <br/>
                     <br/>
 
                     { /* select state */ } 
                     <label> Select State </label> 
                     {/* value = { topic } */}
-                    <select name="state" required value= {state} onChange={(st)=>setstate(st.target.value)} >
+                    <select name="state" required onChange={handleChange} >
 
                     <option value = "AL" > AL </option> 
                     <option value = "AK" > AK </option> 
@@ -152,10 +209,10 @@ const Profile =()=> {
                     <input type = 'text' 
                     name="zipcode"
                     required
-                    value = { zipcode } 
+                    // value = { zipcode } 
                     maxLength = '9' 
                     minLength = '5' 
-                    onChange={(z)=>setzipcode(z.target.value)}/> 
+                    onChange={handleChange}/> 
                     <br/>
                     <br/>
 
