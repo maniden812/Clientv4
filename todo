@@ -1,0 +1,11 @@
+Fix the AUth in the _app.js file
+
+
+
+connect users-repo.js to the database
+
+use /data/users.json to store the users maybe?
+
+
+Do the routing for the pages to database and modify the helpers to new table 
+
