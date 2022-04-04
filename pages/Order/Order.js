@@ -1,4 +1,5 @@
 import React, { Component , useState} from 'react'
+<<<<<<< HEAD
 import styles from './Order.module.css'
 import {Nav} from '../../components/Nav'
 import Hist from "../../components/OrderHistoryTable"
@@ -6,6 +7,15 @@ import moment from 'moment'
 import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import axios from "axios";
+=======
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import styles from './Order.module.css'
+import {ProfileNav} from '../components/Navbar/ProfileNav'
+import Hist from "../components/OrderTable/OrderTable"
+// import { configure } from 'enzyme';
+// import Adapter from 'enzyme-adapter-react-16';
+>>>>>>> ef04a1cb839d9c4bf27a931ad4a23597fc6523bb
 
 configure({ adapter: new Adapter() });
 
