@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // users in JSON file for simplicity, store in a db for production applications
 let users = require('data/users.json');
-
+//all queries to database- how template website talks to database
 export const usersRepo = {
     getAll: () => users,
     getById: id => users.find(x => x.id.toString() === id.toString()),
@@ -11,7 +11,7 @@ export const usersRepo = {
     update,
     delete: _delete
 };
-
+//f(x)s are used on frontend and help querying
 function create(user) {
     // generate new user id
     user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -48,4 +48,9 @@ function _delete(id) {
 
 function saveData() {
     fs.writeFileSync('data/users.json', JSON.stringify(users, null, 4));
+}
+
+//make a sale
+function sale(){
+    //
 }

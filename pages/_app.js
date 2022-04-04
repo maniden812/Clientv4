@@ -35,24 +35,24 @@ function App({ Component, pageProps }) {
 
 
     /// possible rerendeing loop from unfinished logic coem back after db connection to fix 
-    function authCheck(url) {
-        // redirect to login page if accessing a private page and not logged in 
-        setUser(userService.userValue);
-        const loginPaths = ['/account/login', '/account/register'];
-        const protectedPaths = ['/Profile/profile','OrderFormHistory'];
-        const publicPaths = ['/'];
-        const path = url.split('?')[0];
-        if (!userService.userValue && !publicPaths.includes(path)) {
-            setAuthorized(false);
-            router.push({
-                pathname: '/account/login',
-                query: { returnUrl: router.asPath }
-            });
-        } else {
-            setAuthorized(true);
-        }
+    // function authCheck(url) {
+    //     // redirect to login page if accessing a private page and not logged in 
+    //     setUser(userService.userValue);
+    //     const loginPaths = ['/account/login', '/account/register'];
+    //     const protectedPaths = ['/Profile/profile','OrderFormHistory'];
+    //     const publicPaths = ['/'];
+    //     const path = url.split('?')[0];
+    //     if (!userService.userValue && !publicPaths.includes(path)) {
+    //         setAuthorized(false);
+    //         router.push({
+    //             pathname: '/account/login',
+    //             query: { returnUrl: router.asPath }
+    //         });
+    //     } else {
+    //         setAuthorized(true);
+    //     }
         
-    }
+    // }
 
     return (
         <>
