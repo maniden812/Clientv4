@@ -1,12 +1,15 @@
 const mysql = require("mysql");
 
 var db_config = {
-	host: process.env.MYSQL_HOST,
-	port: process.env.MYSQL_PORT,
-    database: process.env.MYSQL_DATABASE,
-	user: process.env.MYSQL_USER,
-	password: process.env.MYSQL_PASSWORD,
-	
+	host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD,
+    // host: 192.168.1.134,
+    // database: fuelquotedb,
+	// user: root,
+	// password: machevin2022,
+    
 };
 
 var connection;

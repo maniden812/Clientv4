@@ -12,6 +12,7 @@ export const usersRepo = {
     delete: _delete
 };
 //f(x)s are used on frontend and help querying
+//adds to database
 function create(user) {
     // generate new user id
     user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
