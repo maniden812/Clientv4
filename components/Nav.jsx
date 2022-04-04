@@ -18,9 +18,6 @@ function Nav() {
     function logout() {
         userService.logout();
     }
-    console.log("test string line 24 NAV");
-    // only show nav when logged in
-    // if (!user) return null;
     
     return (
         <>
