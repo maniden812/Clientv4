@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
 import styles from "./OrderHistoryTable.module.css"
-import { configure } from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
 function OrderHistoryTable(props){
