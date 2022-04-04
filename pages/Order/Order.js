@@ -1,9 +1,7 @@
 import React, { Component , useState} from 'react'
-import DatePicker from 'react-datepicker'
-// import "react-datepicker/dist/react-datepicker.css";
-import styles from './FuelQuote.module.css'
-import {ProfileNav} from '../components/Navbar/ProfileNav'
-import Hist from "../components/FuelQuoteTable/FuelQuoteTable"
+import styles from './Order.module.css'
+import {Nav} from '../../components/Nav'
+import Hist from "../../components/OrderHistoryTable"
 import moment from 'moment'
 import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
@@ -11,7 +9,7 @@ import axios from "axios";
 
 configure({ adapter: new Adapter() });
 
-const FuelQuote = () => {
+const Order = () => {
     
     const [gallons, setGallons]= useState(0)
     const [deliveryDate, setdeliveryDate]= useState("2022-03-13")
@@ -37,47 +35,47 @@ const FuelQuote = () => {
         clientInfo.deliveryDate = deliveryDate
         // alert(`${clientInfo.gallons} ${clientInfo.total} ${clientInfo.deliveryDate}`)
     };
-    const handleSubmit = (event) =>{
-        axios
-          .post('http://localhost:3000/' + "FuelQuote", {
-            userid: localStorage.getItem("userid"),
-            gallons: clientInfo.gallons,
-            total: clientInfo.total,
-            deliveryDate: clientInfo.deliveryDate,
+    // const handleSubmit = (event) =>{
+    //     axios
+    //       .post('http://localhost:3000/' + "Order", {
+    //         userid: localStorage.getItem("userid"),
+    //         gallons: clientInfo.gallons,
+    //         total: clientInfo.total,
+    //         deliveryDate: clientInfo.deliveryDate,
             
-        })
-        .then((res) => {
-            console.log(res.data);
-            if (res.data.error) {
-              console.log(res.data.error);
-            } 
-            else {
-              console.log(res.data.credentials);
-              if (res.data.credentials) {
-                setClient({
-                    gallons: res.data.gallons,
-                    total: res.data.total,
-                    deliveryDate: res.data.deliveryDate,
+    //     })
+    //     .then((res) => {
+    //         console.log(res.data);
+    //         if (res.data.error) {
+    //           console.log(res.data.error);
+    //         } 
+    //         else {
+    //           console.log(res.data.credentials);
+    //           if (res.data.credentials) {
+    //             setClient({
+    //                 gallons: res.data.gallons,
+    //                 total: res.data.total,
+    //                 deliveryDate: res.data.deliveryDate,
                   
-                });
-                history.push("/FuelQuote");
-              } 
-              else if (!res.data.credentials) {
-                console.log(res.data);
-                history.push("/FuelQuote");
-              }
-            }
-          })
-          .catch((err) => console.log(err));
-        e.preventDefault();
-      };
+    //             });
+    //             history.push("/Order");
+    //           } 
+    //           else if (!res.data.credentials) {
+    //             console.log(res.data);
+    //             history.push("/Order");
+    //           }
+    //         }
+    //       })
+    //       .catch((err) => console.log(err));
+    //     e.preventDefault();
+    //   };
     const yesterday = moment().subtract(1, 'day');
     const disablePastDt = current => {
         return current.isAfter(yesterday);
     };
     return (
         <body>
-            <ProfileNav/>
+            <Nav/>
             
             
             <form className={styles.center} onSubmit = { handleSubmit }>
@@ -149,4 +147,4 @@ const FuelQuote = () => {
         )
     }
 
-export default FuelQuote;
+export default Order;

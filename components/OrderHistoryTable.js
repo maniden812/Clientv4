@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import React from 'react';
-import styles from "./FuelQuoteTable.module.css"
+import styles from "./OrderHistoryTable.module.css"
 import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 configure({ adapter: new Adapter() });
-function FuelQuoteTable(props){
+function OrderHistoryTable(props){
     return(
             <table className={styles.allofit}>
                 <thead className={styles.headings}>
@@ -29,4 +29,4 @@ function FuelQuoteTable(props){
 
     )
 }
-export default FuelQuoteTable;
+export default OrderHistoryTable;

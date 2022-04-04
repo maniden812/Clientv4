@@ -1,7 +1,7 @@
 import React, { Component , useState} from 'react'
 import moment from 'moment';
 import styles from './profile.module.css'
-import {ProfileNav} from '../components/Navbar/ProfileNav'
+import {Nav} from '../components/Nav'
 // import { ClientRequest } from 'http'
 import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
@@ -15,7 +15,7 @@ const OrderHistory =()=> {
     return ( 
                 
         <body>
-            <ProfileNav/>
+            <Nav/>
             <div className={styles.container}>
                 <Hist />
             </div>
