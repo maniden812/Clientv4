@@ -1,17 +1,17 @@
 import React, { Component , useState} from 'react'
-import DatePicker from 'react-datepicker'
-// import "react-datepicker/dist/react-datepicker.css";
-import styles from '/Users/friday/Desktop/CS/4535Real/Clientv4/components/FuelHistoryTable.js'
-// import {ProfileNav} from '../components/Navbar/ProfileNav'
-import Hist from "/Users/friday/Desktop/CS/4535Real/Clientv4/components/FuelHistoryTable.js"
+
+import styles from './Order.module.css'
+import {Nav} from '../../components/Nav'
+import Hist from "../../components/OrderHistoryTable"
 import moment from 'moment'
 import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import axios from "axios";
+import pricing from "../api/pricingmodule"
 
 configure({ adapter: new Adapter() });
 
-const FuelQuote = () => {
+const Order = () => {
     
     const [gallons, setGallons]= useState(0)
     const [deliveryDate, setdeliveryDate]= useState("2022-03-13")
@@ -61,11 +61,11 @@ const FuelQuote = () => {
                     deliveryDate: res.data.deliveryDate,
                   
                 });
-                history.push("/FuelQuote");
+                history.push("/Order");
               } 
               else if (!res.data.credentials) {
                 console.log(res.data);
-                history.push("/FuelQuote");
+                history.push("/Order");
               }
             }
           })
@@ -78,7 +78,7 @@ const FuelQuote = () => {
     };
     return (
         <body>
-            {/* <ProfileNav/> */}
+            <Nav/>
             
             
             <form className={styles.center} onSubmit = { handleSubmit }>
@@ -206,4 +206,4 @@ const FuelQuote = () => {
         )
     }
 
-export default FuelQuote;
+export default Order;
