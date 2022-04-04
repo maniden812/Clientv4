@@ -1,30 +1,51 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import React from 'react';
-import styles from "./FuelQuoteTable.module.css"
+import styles from "./FuelHistoryTable.module.css"
 import { configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-
+import axios from "axios"
 configure({ adapter: new Adapter() });
 function FuelQuoteTable(props){
+    const [history, setHistory] = useState([])
+    const getHistory = () => {
+        axios
+          .post("http://localhost:3000/" + "orderhistory", {
+            userid: localStorage.getItem("userid"),
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.error) {
+              console.log(res.data.error);
+            } else {
+              setHistory(res.data);
+            }
+          })
+          .catch((err) => console.log(err));
+      };
+    
+      useEffect(() => {
+        getHistory()
+      }, []);
+      
     return(
             <table className={styles.allofit}>
                 <thead className={styles.headings}>
-                    <tr>
-                        <th className={styles.titles}>Name</th>
-                        <th className={styles.titles}>Address</th>
-                        <th className={styles.titles}>Gallons</th>
-                        <th className={styles.titles}>Date</th>
-                        <th className={styles.titles}>Total</th>
+                    <tr className={styles.titles}>
+                        <th>Address</th>
+                        <th>Gallons</th>
+                        <th>Date</th>
+                        <th>Total</th>
                         
                     </tr>
                 </thead>
-                <tbody>
-                    <td className={styles.data}>{props.name}</td>
-                    <td className={styles.data}>{props.address}</td>
-                    <td className={styles.data}>{props.gallons}</td>
-                    <td className={styles.data}>{props.deliveryDate}</td>
-                    <td className={styles.data}>{props.total}</td>
-                </tbody>
+                {history.map((row, index) => (
+                    <tbody key={index} className={styles.data}>
+                        <td>{row.address}</td>
+                        <td>{row.gallons}</td>
+                        <td>{formatDate(row.date)}</td>
+                        <td>{parseFloat(row.total).toFixed(2)}</td>
+                    </tbody>
+                ))}
             </table>
 
     )

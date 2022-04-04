@@ -1,21 +1,20 @@
 import React, { Component , useState} from 'react'
 import moment from 'moment';
-import styles from './profile.module.css'
-import {ProfileNav} from '../components/Navbar/ProfileNav'
+import styles from './OrderHistory.module.css'
+// import {ProfileNav} from '../components/Navbar/ProfileNav'
 // import { ClientRequest } from 'http'
 import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import Hist from "../components/FuelQuoteTable/FuelQuoteTable"
+import Hist from "/Users/friday/Desktop/CS/4535Real/Clientv4/components/FuelHistoryTable.js"
 Enzyme.configure({ adapter: new Adapter() })
 
 
-const OrderHistory =()=> {
+function OrderHistory(){
     
-
     return ( 
                 
         <body>
-            <ProfileNav/>
+            {/* <ProfileNav/> */}
             <div className={styles.container}>
                 <Hist />
             </div>
