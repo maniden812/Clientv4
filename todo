@@ -9,3 +9,4 @@ use /data/users.json to store the users maybe?
 
 Do the routing for the pages to database and modify the helpers to new table 
 
+Since Enzyme is dead we need to migrate to Ract Testing library

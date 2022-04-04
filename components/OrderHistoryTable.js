@@ -50,4 +50,4 @@ function FuelQuoteTable(props){
 
     )
 }
-export default FuelQuoteTable;
+export default OrderHistoryTable;
