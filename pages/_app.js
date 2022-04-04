@@ -38,13 +38,27 @@ function App({ Component, pageProps }) {
         const protectedPaths = ['/Profile/profile', '/Order', '/OrderHistory'];
         const publicPaths = ['/'];
         const path = url.split('?')[0];
-        if (!userService.userValue && !publicPaths.includes(path)) {
+        if (!userService.userValue && protectedPaths.includes(path)) {
             setAuthorized(false);
             router.push({
-                pathname: '/account/login',
+                pathname: '/account/login',             //#TODO: 
                 query: { returnUrl: router.asPath }
             });
-        } else {
+        }else if (!userService.userValue && publicPaths.includes(path)){
+            setAuthorized(false);
+            router.push({
+                pathname: "/",
+                query: {returnUrl: router.asPath }
+            });
+        }
+        else if (!userService.userValue && loginPaths.includes(path)){
+            setAuthorized(false);
+            router.push({
+                pathname: "/account/login",
+                query: {returnUrl: router.asPath }
+            });
+        }
+         else {
             setAuthorized(true);
         }
         
