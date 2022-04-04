@@ -1,12 +1,13 @@
 import React, { Component , useState} from 'react'
+import moment from 'moment';
 import styles from './profile.module.css'
-import axios from "axios";
-
+// import {ProfileNav} from '../components/Navbar/ProfileNav'
 // import { ClientRequest } from 'http'
-// import Enzyme from 'enzyme';
-// import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import Enzyme from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+// import {ProfileNav} from '../components/Navbar/ProfileNav'
 
-// Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({ adapter: new Adapter() })
 const Profile =()=> {
     // const [fullname, setFullname]= useState('')
     // const [address1, setaddress1]= useState('')
@@ -29,12 +30,21 @@ const Profile =()=> {
           [e.target.name]: e.target.value,
         });
     };
+
+    // const handleSubmit = (event) =>{
+    //     // event.preventDefault();
+    //     // client.fullname= fullname,
+    //     // client.address1= address1,
+    //     // client.address2= address2,
+    //     // client.city= city,
+    //     // client.state= state,
+    //     // client.zipcode= zipcode
     
-        // event.preventDefault();
-        
+    //     alert(`${client.fullname} ${client.address1} ${client.address2} ${client.city} ${client.state} ${client.zipcode}`)
+    // };
     const handleSubmit = (event) =>{
         axios
-          .post('http://localhost:3000/' + "profile", {
+            .post('http://localhost:3000/' + "profile", {
             userid: localStorage.getItem("userid"),
             fullname: client.fullname,
             address1: client.address1,
@@ -46,64 +56,49 @@ const Profile =()=> {
         .then((res) => {
             console.log(res.data);
             if (res.data.error) {
-              console.log(res.data.error);
+                console.log(res.data.error);
             } 
             else {
-              console.log(res.data.credentials);
-              if (res.data.credentials) {
+                console.log(res.data.credentials);
+                if (res.data.credentials) {
                 setClient({
-                  fullname: res.data.fullname,
-                  address1: res.data.address1,
-                  address2: res.data.address2,
-                  city: res.data.city,
-                  state: res.data.state,
-                  zipcode: res.data.zipcode,
-                  credentials: res.data.credentials
+                    fullname: res.data.fullname,
+                    address1: res.data.address1,
+                    address2: res.data.address2,
+                    city: res.data.city,
+                    state: res.data.state,
+                    zipcode: res.data.zipcode,
+                    credentials: res.data.credentials
                 });
                 history.push("/profile");
-              } 
-              else if (!res.data.credentials) {
+                } 
+                else if (!res.data.credentials) {
                 console.log(res.data);
                 history.push("/profile");
-              }
+                }
             }
-          })
-          .catch((err) => console.log(err));
+            })
+            .catch((err) => console.log(err));
         e.preventDefault();
-      };
-    //         const info={
-    //             fullname= fullname,
-    //             address1= address1,
-    //             address2= address2,
-    //             city= city,
-    //             state= state,
-    //             zipcode= zipcode
-    //         }
-    //         axios.post('http://localhost:3000', info)
-    //             .then((res) => {
-    //                 console.log(res.info)
-    //             }).catch((error) => {
-    //                 console.log(error)
-    //             });    
-    //     };
-    
-    //     // alert(`${client.fullname} ${client.address1} ${client.address2} ${client.city} ${client.state} ${client.zipcode}`)
-    // };
-        
-          
+        };
+            
+
 
     return ( 
                 
-        <body>  
+        <body>
+            {/* <ProfileNav/> */}
+                
+                
             <form className = { styles.center } onSubmit = { handleSubmit } >
                 <div> { /* type in full name */ } 
                     <label > Full Name </label>  
                     <br/>
                     <input type = 'text' 
+                    id ='fl'
                     name="fullname"
-                    maxLength = '50' 
+                    maxlength = '50' 
                     required
-                    // value = {fullname}
                     onChange={handleChange}/> 
                     <br/>
                     <br/>
@@ -113,9 +108,9 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="address1"
+                    id ='a1'
                     required
-                    // value = { address1 } 
-                    maxLength = '100' 
+                    maxlength = '100' 
                     onChange={handleChange}/> 
                     <br/>
                     <br/>
@@ -125,8 +120,8 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="address2"
-                    // value = { address2 } 
-                    maxLength = '100' 
+                    id ='a2'
+                    maxlength = '100' 
                     onChange={handleChange}/> 
                     <br/>
                     <br/>
@@ -136,9 +131,9 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="city"
-                    // value = { city } 
+                    id ='city'
                     required
-                    maxLength = '100' 
+                    maxlength = '100' 
                     onChange={handleChange}/> 
                     <br/>
                     <br/>
@@ -146,7 +141,7 @@ const Profile =()=> {
                     { /* select state */ } 
                     <label> Select State </label> 
                     {/* value = { topic } */}
-                    <select name="state" required onChange={handleChange} >
+                    <select name="state" required id ='st' onChange={handleChange} >
 
                     <option value = "AL" > AL </option> 
                     <option value = "AK" > AK </option> 
@@ -208,16 +203,16 @@ const Profile =()=> {
                     <br/>
                     <input type = 'text' 
                     name="zipcode"
+                    id ='zip'
                     required
-                    // value = { zipcode } 
-                    maxLength = '9' 
-                    minLength = '5' 
+                    maxlength = '9' 
+                    minlength = '5' 
                     onChange={handleChange}/> 
                     <br/>
                     <br/>
 
                     { /* button for confirm */ } 
-                    <button className = { styles.button } type = "submit" > Confirm </button> 
+                    <button id="submit-button" className = { styles.button } type = "submit" > Confirm </button> 
                 </div> 
             </form> 
 
