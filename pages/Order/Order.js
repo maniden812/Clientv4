@@ -1,15 +1,15 @@
 import React, { Component , useState} from 'react'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-import styles from './FuelQuote.module.css'
+import styles from './Order.module.css'
 import {ProfileNav} from '../components/Navbar/ProfileNav'
-import Hist from "../components/FuelQuoteTable/FuelQuoteTable"
+import Hist from "../components/OrderTable/OrderTable"
 // import { configure } from 'enzyme';
 // import Adapter from 'enzyme-adapter-react-16';
 
 // configure({ adapter: new Adapter() });
 
-const FuelQuote = () => {
+const Order = () => {
     
     const [gallons, setGallons]= useState(0)
     const [deliveryDate, setdeliveryDate]= useState(new Date())
@@ -94,4 +94,4 @@ const FuelQuote = () => {
         )
     }
 
-export default FuelQuote;
+export default Order;
