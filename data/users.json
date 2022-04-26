@@ -5,7 +5,12 @@
         "id": 2,
         "dateCreated": "2022-03-14T02:55:32.253Z",
         "dateUpdated": "2022-03-14T02:55:32.253Z",
-        "firstName": "testedit",
-        "lastName": "testedit"
+        "fullname": "testedit",
+        "address1":"",
+        "address2":"",
+        "city":"",
+        "state":"",
+        "zip":"",
+        "sale":[]
     }
 ]

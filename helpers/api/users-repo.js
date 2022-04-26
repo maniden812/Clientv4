@@ -2,16 +2,17 @@ const fs = require('fs');
 
 // users in JSON file for simplicity, store in a db for production applications
 let users = require('data/users.json');
-//all queries to database- how template website talks to database
+
 export const usersRepo = {
     getAll: () => users,
     getById: id => users.find(x => x.id.toString() === id.toString()),
     find: x => users.find(x),
     create,
     update,
+    sale,
     delete: _delete
 };
-//f(x)s are used on frontend and help querying
+
 function create(user) {
     // generate new user id
     user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -25,8 +26,27 @@ function create(user) {
     saveData();
 }
 
+//figure this out ana
+
 function update(id, params) {
     const user = users.find(x => x.id.toString() === id.toString());
+
+    
+    // fullname
+    user.fullname = params.fullname;
+    //address1
+    user.address1 = params.address1;
+    //address2
+    user.address2 = params.address2;
+    //city
+    user.city = params.city;
+    //state
+    user.state = params.state;
+    //zipcode
+    user.zipcode = params.zipcode;
+
+
+
 
     // set date updated
     user.dateUpdated = new Date().toISOString();
@@ -34,6 +54,17 @@ function update(id, params) {
     // update and save
     Object.assign(user, params);
     saveData();
+}
+//figure this out manasa
+function sale(id, params){
+    const user = users.find(x => x.id.toString() === id.toString());
+    // set sale data into db 
+    user.sale = user.sale.append(params);
+    user.dateUpdated = new Date().toISOString();
+
+    Object.assign(user, params);
+    saveData();
+
 }
 
 // prefixed with underscore '_' because 'delete' is a reserved word in javascript
@@ -48,9 +79,4 @@ function _delete(id) {
 
 function saveData() {
     fs.writeFileSync('data/users.json', JSON.stringify(users, null, 4));
-}
-
-//make a sale
-function sale(){
-    //
 }
