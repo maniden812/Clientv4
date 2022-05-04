@@ -5,13 +5,12 @@ import {Nav} from '../components/Nav'
 // import { ClientRequest } from 'http'
 import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import Hist from "../components/FuelQuoteTable/FuelQuoteTable"
+import Hist from "/Users/friday/Desktop/CS/4535Real/Clientv4/components/FuelHistoryTable.js"
 Enzyme.configure({ adapter: new Adapter() })
 
 
-const OrderHistory =()=> {
+function OrderHistory(){
     
-
     return ( 
                 
         <body>
