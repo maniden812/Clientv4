@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-
 import { Link } from '../../components';
 import { Layout } from '../../components/account';
 import { userService, alertService } from '../../services';
@@ -26,14 +25,19 @@ function Register() {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors } = formState;
 
+    
+
     function onSubmit(user) {
+        
         return userService.register(user)
+        
             .then(() => {
                 alertService.success('Registration successful', { keepAfterRouteChange: true });
                 router.push('login');
             })
             .catch(alertService.error);
     }
+    console.log(JSON.stringify(user));
 
     return (
         <Layout>
@@ -42,6 +46,7 @@ function Register() {
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
+                            
                             <label>Username</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>

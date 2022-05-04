@@ -46,8 +46,6 @@ function update(id, params) {
     user.zipcode = params.zipcode;
 
 
-
-
     // set date updated
     user.dateUpdated = new Date().toISOString();
 

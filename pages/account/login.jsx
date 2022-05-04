@@ -31,7 +31,7 @@ function Login() {
             })
             .catch(alertService.error);
     }
-    console.log("test LOGIN");
+
     return (
         <Layout>
             <div className="card">
