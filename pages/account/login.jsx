@@ -11,7 +11,6 @@ export default Login;
 
 function Login() {
     const router = useRouter();
-    console.log("test string line 14");
     // form validation rules 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('Username is required'),
@@ -32,7 +31,7 @@ function Login() {
             })
             .catch(alertService.error);
     }
-    console.log("test LOGIN");
+
     return (
         <Layout>
             <div className="card">

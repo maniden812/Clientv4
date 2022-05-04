@@ -31,22 +31,6 @@ function create(user) {
 function update(id, params) {
     const user = users.find(x => x.id.toString() === id.toString());
 
-    
-    // fullname
-    user.fullname = params.fullname;
-    //address1
-    user.address1 = params.address1;
-    //address2
-    user.address2 = params.address2;
-    //city
-    user.city = params.city;
-    //state
-    user.state = params.state;
-    //zipcode
-    user.zipcode = params.zipcode;
-
-
-
 
     // set date updated
     user.dateUpdated = new Date().toISOString();

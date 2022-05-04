@@ -3,13 +3,12 @@ import styles from './Nav.module.css';
 import { NavLink } from '.';
 import { userService } from '../services';
 import Link from 'next/link'
+
 export { Nav };
 
 
-console.log("test string line 14 NAV");
 function Nav() {
     const [user, setUser] = useState(null);
-
     useEffect(() => {
         const subscription = userService.user.subscribe(x => setUser(x));
         return () => subscription.unsubscribe();

@@ -19,8 +19,6 @@ const OrderHistory =()=> {
             <div className={styles.container}>
                 <Hist />
             </div>
-                
-            
 
         </body>
         
