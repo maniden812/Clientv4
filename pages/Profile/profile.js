@@ -5,6 +5,9 @@ import styles from './profile.module.css'
 // import { ClientRequest } from 'http'
 import Enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { userService, alertService } from '../../services';
+import {usersRepo } from '../../helpers/api/users-repo';
+// import { apiHandler } from '../../pages/api/users/[id]';
 // import {ProfileNav} from '../components/Navbar/ProfileNav'
 
 Enzyme.configure({ adapter: new Adapter() })
@@ -17,12 +20,18 @@ const Profile =()=> {
     // const [zipcode, setzipcode]= useState('')
 
     const [client, setClient] = useState({
+        username: "",
+        hash: "",
+        id: "", //change based on import 
+        dateCreated: "",
+        dateUpdated: "",
         fullname: "",
         address1: "",
         address2: "",
         city: "",
         state: "",
         zipcode: "",
+        sale: "",
     });
     const handleChange = (e) => {
         setClient({
@@ -31,6 +40,17 @@ const Profile =()=> {
         });
     };
 
+
+    const ide = usersRepo.getById(client.id);//pass param
+    function onSubmit({ide, client }) {//based on paraemters of profile 
+        return userService.update(ide, client)
+            .then(() => {
+                // get return url from query parameters or default to '/'
+                const returnUrl = router.query.returnUrl || '/';
+                router.push(returnUrl);
+            })
+            .catch(alertService.error);
+    }
     // const handleSubmit = (event) =>{
     //     // event.preventDefault();
     //     // client.fullname= fullname,
@@ -42,45 +62,45 @@ const Profile =()=> {
     
     //     alert(`${client.fullname} ${client.address1} ${client.address2} ${client.city} ${client.state} ${client.zipcode}`)
     // };
-    const handleSubmit = (event) =>{
-        axios
-            .post('http://localhost:3000/' + "profile", {
-            userid: localStorage.getItem("userid"),
-            fullname: client.fullname,
-            address1: client.address1,
-            address2: client.address2,
-            city: client.city,
-            state: client.state,
-            zipcode: client.zipcode,
-        })
-        .then((res) => {
-            console.log(res.data);
-            if (res.data.error) {
-                console.log(res.data.error);
-            } 
-            else {
-                console.log(res.data.credentials);
-                if (res.data.credentials) {
-                setClient({
-                    fullname: res.data.fullname,
-                    address1: res.data.address1,
-                    address2: res.data.address2,
-                    city: res.data.city,
-                    state: res.data.state,
-                    zipcode: res.data.zipcode,
-                    credentials: res.data.credentials
-                });
-                history.push("/profile");
-                } 
-                else if (!res.data.credentials) {
-                console.log(res.data);
-                history.push("/profile");
-                }
-            }
-            })
-            .catch((err) => console.log(err));
-        e.preventDefault();
-        };
+    // const handleSubmit = (event) =>{
+    //     axios
+    //         .post('http://localhost:3000/' + "profile", {
+    //         userid: localStorage.getItem("userid"),
+    //         fullname: client.fullname,
+    //         address1: client.address1,
+    //         address2: client.address2,
+    //         city: client.city,
+    //         state: client.state,
+    //         zipcode: client.zipcode,
+    //     })
+    //     .then((res) => {
+    //         console.log(res.data);
+    //         if (res.data.error) {
+    //             console.log(res.data.error);
+    //         } 
+    //         else {
+    //             console.log(res.data.credentials);
+    //             if (res.data.credentials) {
+    //             setClient({
+    //                 fullname: res.data.fullname,
+    //                 address1: res.data.address1,
+    //                 address2: res.data.address2,
+    //                 city: res.data.city,
+    //                 state: res.data.state,
+    //                 zipcode: res.data.zipcode,
+    //                 credentials: res.data.credentials
+    //             });
+    //             history.push("/profile");
+    //             } 
+    //             else if (!res.data.credentials) {
+    //             console.log(res.data);
+    //             history.push("/profile");
+    //             }
+    //         }
+    //         })
+    //         .catch((err) => console.log(err));
+    //     e.preventDefault();
+    //     };
             
 
 
@@ -89,8 +109,7 @@ const Profile =()=> {
         <body>
             {/* <ProfileNav/> */}
                 
-                
-            <form className = { styles.center } onSubmit = { handleSubmit } >
+            <form className = { styles.center } onSubmit = { (onSubmit)} >
                 <div> { /* type in full name */ } 
                     <label > Full Name </label>  
                     <br/>

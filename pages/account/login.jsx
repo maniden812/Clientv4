@@ -11,7 +11,6 @@ export default Login;
 
 function Login() {
     const router = useRouter();
-    console.log("test string line 14");
     // form validation rules 
     const validationSchema = Yup.object().shape({
         username: Yup.string().required('Username is required'),

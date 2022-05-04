@@ -27,8 +27,8 @@
 // }
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
-
-import Profile from '../pages/profile';
+// import {render, fireEvent, screen} from '@testing-library/react';
+import Profile from '../pages/Profile/profile';
 // import TestRenderer from 'react-test-renderer';
 // import { shallow } from 'enzyme';
 //const profilemodule = require('../pages/profile');
@@ -39,6 +39,7 @@ test('check if values are empty', () => {
     // const [fullname, address1, address2, city, state, zipcode] = Profile(fullname, address1, address2, city, state, zipcode);
 
     // expect(fullname).not.toBeNull();
+    //creat object that mimics db and check if params are empty 
     // expect(fullname).toBeLessThanOrEqual(50);
 
     // expect(address1).not.toBeNull();
