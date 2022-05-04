@@ -1,5 +1,3 @@
-import { userService } from '../services';
-import { Link } from '../components';
 import styles from './index.module.css'
 export default Home;
 
